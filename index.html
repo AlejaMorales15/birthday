@@ -7,12 +7,6 @@
   <!-- Agregamos la librería de confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    @font-face {
-      font-family: 'American Typewriter';
-      src: url('/American Typewriter Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
     body {
       margin: 0;
       font-family: 'American Typewriter', 'Courier New', Courier, monospace;
@@ -32,7 +26,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #000 url('/background_the_office.jpg') no-repeat center center fixed;
+      background: #000 url('public/background_the_office.jpg') no-repeat center center fixed;
       background-size: cover;
       opacity: 1;
       z-index: -1;
@@ -113,13 +107,22 @@
     #resetButton:hover {
       background-color: #555;
     }
+    @font-face {
+      font-family: 'American Typewriter';
+      src: url('public/American Typewriter Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
   </style>
 </head>
 <body>
   <h1>🎂 ¡Ayuda a Andrea a encontrar su pastel de cumpleaños!</h1>
-  <button id="playMusicButton" style="margin-bottom: 20px; font-size: 16px; padding: 10px 20px; background: #444; color: #fff; border: 2px solid #777; border-radius: 5px; cursor: pointer; font-family: 'Courier New', monospace;">Activar música</button>
+  <div id="musicControl" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+    <button id="playMusicButton" style="font-size: 28px; background: none; color: #fff; border: none; cursor: pointer; font-family: 'American Typewriter', 'Courier New', Courier, monospace;">▶️</button>
+    <span style="font-size: 18px; color: #fff; font-family: 'American Typewriter', 'Courier New', Courier, monospace;">Activa la música</span>
+  </div>
   <audio id="themeAudio">
-    <source src="/The_Office_Theme_Song.mp3" type="audio/mpeg">
+    <source src="public/The_Office_Theme_Song.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
   </audio>
   <div id="attempts">Intentos: 0</div>
@@ -160,7 +163,7 @@
         tile.style.pointerEvents = 'auto';
         // Imagen de Andrea por defecto
         const img = document.createElement('img');
-        img.src = '/andre_picture.png';
+        img.src = 'public/andre_picture.png';
         img.alt = 'Andrea';
         tile.appendChild(img);
         tile.onclick = function() {
@@ -216,12 +219,19 @@
     };
 
     playMusicButton.onclick = function() {
-      themeAudio.play();
-      playMusicButton.style.display = 'none';
+      if (themeAudio.paused) {
+        themeAudio.play();
+      } else {
+        themeAudio.pause();
+      }
     };
 
     themeAudio.onplay = function() {
-      playMusicButton.style.display = 'none';
+      playMusicButton.textContent = '⏸️';
+    };
+
+    themeAudio.onpause = function() {
+      playMusicButton.textContent = '▶️';
     };
 
     // Inicializar el juego al cargar
