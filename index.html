@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find the Cake - Andrea's Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 10px;
+    }
+    .tile {
+      width: 80px;
+      height: 80px;
+      background-color: #444;
+      border: 2px solid #777;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .tile:hover {
+      background-color: #555;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Help Andrea Find Her Birthday Cake!</h1>
+  <audio id="themeAudio" autoplay>
+  <source src="https://drive.google.com/uc?export=download&id=1Hzt1AuhuJ5t1nZH7TalfrG3EVxmcyUdV" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+  <div class="grid" id="grid"></div>
+  <div id="message"></div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const message = document.getElementById('message');
+    const cakeIndex = Math.floor(Math.random() * 16);
+
+    const characters = [
+      '🧑‍💼', '👩‍💼', '👨‍💼', '🕵️',
+      '🧑‍💻', '💼', '📎', '📠',
+      '📊', '📅', '🗂️', '📁',
+      '📝', '📋', '📇', '📌'
+    ];
+
+    let gameOver = false;
+
+    for (let i = 0; i < 16; i++) {
+      const tile = document.createElement('div');
+      tile.classList.add('tile');
+      tile.dataset.index = i;
+      tile.textContent = '❓';
+
+      tile.addEventListener('click', () => {
+        if (gameOver) return;
+
+        if (parseInt(tile.dataset.index) === cakeIndex) {
+          tile.textContent = '🎂';
+          message.innerHTML = '<strong>Joyeux anniversaire Andrea!</strong><br>🎉 El equipo UProfit te celebra como a la mejor jefa en Scranton (y el mundo).';
+          gameOver = true;
+        } else {
+          tile.textContent = characters[i];
+          tile.style.pointerEvents = 'none';
+        }
+      });
+
+      grid.appendChild(tile);
+    }
+  </script>
+</body>
+</html>
