@@ -9,7 +9,7 @@
   <style>
     @font-face {
       font-family: 'American Typewriter';
-      src: url('public/American Typewriter Regular.ttf') format('truetype');
+      src: url('/American Typewriter Regular.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
@@ -32,7 +32,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #000 url('public/background_the_office.jpg') no-repeat center center fixed;
+      background: #000 url('/background_the_office.jpg') no-repeat center center fixed;
       background-size: cover;
       opacity: 1;
       z-index: -1;
@@ -119,7 +119,7 @@
   <h1>🎂 ¡Ayuda a Andrea a encontrar su pastel de cumpleaños!</h1>
   <button id="playMusicButton" style="margin-bottom: 20px; font-size: 16px; padding: 10px 20px; background: #444; color: #fff; border: 2px solid #777; border-radius: 5px; cursor: pointer; font-family: 'Courier New', monospace;">Activar música</button>
   <audio id="themeAudio">
-    <source src="public/The_Office_Theme_Song.mp3" type="audio/mpeg">
+    <source src="/The_Office_Theme_Song.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
   </audio>
   <div id="attempts">Intentos: 0</div>
@@ -160,7 +160,7 @@
         tile.style.pointerEvents = 'auto';
         // Imagen de Andrea por defecto
         const img = document.createElement('img');
-        img.src = 'public/andre_picture.png';
+        img.src = '/andre_picture.png';
         img.alt = 'Andrea';
         tile.appendChild(img);
         tile.onclick = function() {
